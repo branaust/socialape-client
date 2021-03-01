@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
+import Scream from '../components/Scream.js'
 
 
 function Home() {
@@ -9,7 +10,6 @@ function Home() {
         axios.get('/screams')
             .then(res => {
                 setScreams(res.data)
-                console.log(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -18,7 +18,7 @@ function Home() {
 
     const [screams, setScreams] = useState(null)
     let recentScreamsMarkup = screams ?
-        (screams.map(scream => <p>{scream.body}</p>)) : <p>Loading...</p>
+        (screams.map(scream => <Scream scream={scream} key={scream.screamId} />)) : <p>Loading...</p>
 
     return (
         <Grid container spacing={10}>
