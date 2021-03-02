@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
@@ -6,6 +6,10 @@ import useInputState from '../hooks/useInputState'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styles from '../styles/FormStyles'
+
+// Redux
+import { connect } from 'react-redux'
+import { loginUser } from '../redux/actions/userActions'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -16,32 +20,30 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 function Login(props) {
-    const { classes } = props
+    const { classes, UI: { loading } } = props
     const [email, updateEmail] = useInputState("")
     const [password, updatePassword] = useInputState("")
-    const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setLoading(true)
         const userData = {
             email,
             password
         }
-        axios.post('/login', userData)
-            .then(res => {
-                console.log(res.data)
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-                setLoading(false)
-                props.history.push('/')
-            })
-            .catch(err => {
-                setErrors(err.response.data)
-                setLoading(false)
-                console.log(err.response.data)
-            })
+        props.loginUser(userData, props.history)
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.UI.errors) {
+    //         setErrors(nexProps.UI.errors)
+    //     }
+    // }
+
+    useEffect(() => {
+        setErrors(props.UI.errors)
+    }, [props.UI.errors])
+
 
     return (
         <Grid container className={classes.form}>
@@ -103,8 +105,19 @@ function Login(props) {
 }
 
 Login.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
 }
 
+const mapStateToProps = (state) => ({
+    user: state.user,
+    UI: state.UI
+})
 
-export default withStyles(styles)(Login)
+const mapActionsToProps = {
+    loginUser
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Login))
