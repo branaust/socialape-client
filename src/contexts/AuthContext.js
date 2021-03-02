@@ -102,7 +102,6 @@ export function AuthProvider(props) {
                 getUserData()
                 console.log(authenticated)
             }
-
         }
     }, [])
 
