@@ -117,6 +117,7 @@ function Login(props) {
                             type="submit"
                             variant="contained"
                             color="primary"
+                            disabled={loading}
                         >Login  </Button>
                     }
                     {loading && (
