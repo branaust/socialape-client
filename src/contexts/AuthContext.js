@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import useInputState from '../hooks/useInputState'
 import axios from 'axios'
 import history from '../history'
+import jwtDecode from 'jwt-decode'
 
 export const AuthContext = React.createContext()
 
@@ -31,9 +32,10 @@ export function AuthProvider(props) {
         }
         axios.post('/signup', newUserData)
             .then(res => {
-                console.log(res.data)
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
+                setAuthorizationHeader(res.data.token)
+                getUserData()
                 setLoading(false)
+                setErrors({})
                 history.push('/')
             })
             .catch(err => {
@@ -53,9 +55,7 @@ export function AuthProvider(props) {
         }
         axios.post('/login', userData)
             .then(res => {
-                const FBIdToken = `Bearer ${res.data.token}`
-                localStorage.setItem('FBIdToken', FBIdToken)
-                axios.defaults.headers.common['Authorization'] = FBIdToken;
+                setAuthorizationHeader(res.data.token)
                 getUserData()
                 setLoading(false)
                 setErrors({})
@@ -66,6 +66,14 @@ export function AuthProvider(props) {
                 setLoading(false)
                 console.log(err)
             })
+    }
+
+    // Logout User
+    const logoutUser = () => {
+        localStorage.removeItem('FBIdToken');
+        delete axios.defaults.headers.common['Authorization']
+        setAuthenticated(false)
+        setUser({})
     }
 
     // Get User Data
@@ -79,6 +87,30 @@ export function AuthProvider(props) {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    useEffect(() => {
+        const token = localStorage.FBIdToken;
+        if (token) {
+            const decodedToken = jwtDecode(token)
+            if (decodedToken.exp * 1000 < Date.now()) {
+                logoutUser()
+                window.location.href = '/login'
+            } else {
+                setAuthenticated(true)
+                axios.defaults.headers.common['Authorization'] = token
+                getUserData()
+                console.log(authenticated)
+            }
+
+        }
+    }, [])
+
+
+    const setAuthorizationHeader = (token) => {
+        const FBIdToken = `Bearer ${token}`
+        localStorage.setItem('FBIdToken', FBIdToken)
+        axios.defaults.headers.common['Authorization'] = FBIdToken;
     }
 
     const value = {
@@ -97,9 +129,12 @@ export function AuthProvider(props) {
         setErrors,
         user,
         authenticated,
+        setAuthenticated,
         // Functions
         handleLogin,
-        handleSignup
+        handleSignup,
+        logoutUser,
+        getUserData
     }
 
     return (

@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
-import useInputState from '../hooks/useInputState'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styles from '../styles/FormStyles'
 
@@ -30,7 +28,6 @@ function Signup(props) {
         errors,
         handleSignup
     } = useAuth()
-
 
 
     return (

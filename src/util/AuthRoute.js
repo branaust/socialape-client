@@ -1,11 +1,15 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
-const AuthRoute = ({ component: Component, authenticated, ...rest }) => (
-    <Route
-        {...rest}
-        render={(props) => authenticated === true ? <Redirect to='/' /> : <Component {...props} />}
-    />
-)
+export default function AuthRoute({ component: Component, ...rest }) {
 
-export default AuthRoute
+    const { authenticated } = useAuth()
+
+    return (
+        <Route
+            {...rest}
+            render={(props) => authenticated === true ? <Redirect to='/' /> : <Component {...props} />}
+        />
+    )
+}
