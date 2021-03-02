@@ -1,9 +1,13 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import styles from './styles/MuiThemeStyles'
 import jwtDecode from 'jwt-decode'
+
+// Contexts
+import { AuthProvider } from './contexts/AuthContext'
+import history from './history'
 
 // Componenets
 import Navbar from './components/Navbar'
@@ -28,11 +32,13 @@ if (token) {
   }
 }
 
+console.log(authenticated)
+
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <div className="App">
-        <Router>
+    <AuthProvider>
+      <MuiThemeProvider theme={theme}>
+        <Router history={history}>
           <Navbar />
           <div className="container">
             <Switch>
@@ -42,8 +48,8 @@ function App() {
             </Switch>
           </div>
         </Router>
-      </div>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
+    </AuthProvider>
   );
 }
 

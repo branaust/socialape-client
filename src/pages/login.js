@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useAuth } from '../contexts/AuthContext'
 import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
-import useInputState from '../hooks/useInputState'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styles from '../styles/FormStyles'
+
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -16,31 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Login(props) {
     const { classes } = props
-    const [email, updateEmail] = useInputState("")
-    const [password, updatePassword] = useInputState("")
-    const [loading, setLoading] = useState(false)
-    const [errors, setErrors] = useState({})
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setLoading(true)
-        const userData = {
-            email,
-            password
-        }
-        axios.post('/login', userData)
-            .then(res => {
-                console.log(res.data)
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-                setLoading(false)
-                props.history.push('/')
-            })
-            .catch(err => {
-                setErrors(err.response.data)
-                setLoading(false)
-                console.log(err.response.data)
-            })
-    }
+    const { email, updateEmail, password, updatePassword, loading, errors, handleLogin } = useAuth()
 
     return (
         <Grid container className={classes.form}>
@@ -50,7 +26,7 @@ function Login(props) {
                 <Typography variant="h2" className={classes.pageTitle}>
                     Login
                 </Typography>
-                <form noValidate onSubmit={handleSubmit}>
+                <form noValidate onSubmit={handleLogin}>
                     <TextField
                         className={classes.textField}
                         onChange={updateEmail}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useAuth } from '../contexts/AuthContext'
 import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
@@ -17,35 +18,20 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Signup(props) {
     const { classes } = props
-    const [email, updateEmail] = useInputState("")
-    const [handle, updateHandle] = useInputState("")
-    const [password, updatePassword] = useInputState("")
-    const [confirmPassword, updateConfirmPassword] = useInputState("")
-    const [loading, setLoading] = useState(false)
-    const [errors, setErrors] = useState({})
+    const { email,
+        updateEmail,
+        handle,
+        updateHandle,
+        password,
+        updatePassword,
+        confirmPassword,
+        updateConfirmPassword,
+        loading,
+        errors,
+        handleSignup
+    } = useAuth()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setLoading(true)
-        const newUserData = {
-            email,
-            password,
-            confirmPassword,
-            handle
-        }
-        axios.post('/signup', newUserData)
-            .then(res => {
-                console.log(res.data)
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-                setLoading(false)
-                props.history.push('/')
-            })
-            .catch(err => {
-                setErrors(err.response.data)
-                setLoading(false)
-                console.log(err.response.data)
-            })
-    }
+
 
     return (
         <Grid container className={classes.form}>
@@ -55,7 +41,7 @@ function Signup(props) {
                 <Typography variant="h2" className={classes.pageTitle}>
                     Signup
                 </Typography>
-                <form noValidate onSubmit={handleSubmit}>
+                <form noValidate onSubmit={handleSignup}>
                     <TextField
                         className={classes.textField}
                         onChange={updateEmail}
