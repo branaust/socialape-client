@@ -3,10 +3,9 @@ import styles from '../styles/EditDetailsStyles'
 import { useAuth } from '../contexts/AuthContext'
 import useToggleState from '../hooks/useToggleState'
 import useInputState from '../hooks/useInputState'
+import ToolTipButton from '../components/ToolTipButton'
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
-import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -40,11 +39,9 @@ function EditDetails(props) {
 
     return (
         <Fragment>
-            <Tooltip title="Edit Details" placement="top">
-                <IconButton onClick={handleOpen} className={classes.button}>
-                    <EditIcon color="primary" />
-                </IconButton>
-            </Tooltip>
+            <ToolTipButton tip="Edit Details" placement="top" onClick={handleOpen} tipClassName={classes.button}>
+                <EditIcon color="primary" />
+            </ToolTipButton>
             <Dialog
                 open={open}
                 onClose={handleOpen}
