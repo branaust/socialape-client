@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import useInputState from '../hooks/useInputState'
 import axios from 'axios'
-import history from '../history'
+import history from '../util/history'
 import jwtDecode from 'jwt-decode'
 
 export const AuthContext = React.createContext()
@@ -78,14 +78,17 @@ export function AuthProvider(props) {
 
     // Get User Data
     const getUserData = () => {
+        setLoading(true)
         axios.get('/user')
             .then(res => {
                 console.log(res)
                 setUser(res.data)
                 setAuthenticated(true)
+                setLoading(false)
             })
             .catch(err => {
                 console.log(err)
+                setLoading(false)
             })
     }
 

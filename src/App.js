@@ -3,10 +3,10 @@ import { Router, Switch, Route } from 'react-router-dom'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import styles from './styles/MuiThemeStyles'
+import history from './util/history'
 
 // Contexts
 import { AuthProvider } from './contexts/AuthContext'
-import history from './history'
 
 // Componenets
 import Navbar from './components/Navbar'
