@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext'
 import styles from '../styles/ProfileStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
+import EditDetils from '../components/EditDetails'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -16,6 +17,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 import IconButton from "@material-ui/core/IconButton"
 import EditIcon from "@material-ui/icons/Edit"
 import Tooltip from '@material-ui/core/Tooltip';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 
 
 function Profile(props) {
@@ -35,6 +37,10 @@ function Profile(props) {
     const handleEditPicture = () => {
         const fileInput = document.getElementById('imageInput')
         fileInput.click()
+    }
+
+    const handleLogout = () => {
+        logoutUser()
     }
 
     let profileMarkup = !loading ? (authenticated ? (
@@ -75,6 +81,12 @@ function Profile(props) {
                     <CalendarToday color="primary" />{' '}
                     <span>Joined {dayjs(credentials.createdAt).format('MMM YYYY')}</span>
                 </div>
+                <Tooltip title="Logout" placement="top">
+                    <IconButton onClick={handleLogout}>
+                        <KeyboardReturn color="primary" />
+                    </IconButton>
+                </Tooltip>
+                <EditDetils />
             </div>
         </Paper >
     ) : (

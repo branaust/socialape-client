@@ -102,6 +102,16 @@ export function AuthProvider(props) {
             .catch(err => console.log(err))
     }
 
+    // Edit User Details
+    const editUserDetails = (userDetails) => {
+        setLoading(true)
+        axios.post('/user', userDetails)
+            .then(() => {
+                getUserData()
+            })
+            .catch(err => console.log(err))
+    }
+
     useEffect(() => {
         const token = localStorage.FBIdToken;
         if (token) {
@@ -147,7 +157,8 @@ export function AuthProvider(props) {
         handleSignup,
         logoutUser,
         getUserData,
-        uploadImage
+        uploadImage,
+        editUserDetails
     }
 
     return (
