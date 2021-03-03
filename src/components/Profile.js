@@ -13,19 +13,41 @@ import Typography from '@material-ui/core/Typography'
 import LocationOn from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
+import IconButton from "@material-ui/core/IconButton"
+import EditIcon from "@material-ui/icons/Edit"
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 function Profile(props) {
     const { classes } = props
-    const { user, loading, authenticated } = useAuth()
+    const { user, loading, setLoading, authenticated, logoutUser, uploadImage } = useAuth()
     const { credentials } = user
     // TODO: Destructure ^^^ 
+
+    const handleImageChange = (e) => {
+        const image = e.target.files[0]
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        uploadImage(formData)
+        setLoading(false)
+    }
+
+    const handleEditPicture = () => {
+        const fileInput = document.getElementById('imageInput')
+        fileInput.click()
+    }
 
     let profileMarkup = !loading ? (authenticated ? (
         <Paper className={classes.paper}>
             <div className={classes.profile}>
                 <div className="image-wrapper">
                     <img src={credentials.imageUrl} alt="profile" className="profile-image" />
+                    <input type="file" id="imageInput" onChange={handleImageChange} hidden="hidden" />
+                    <Tooltip title="Edit Image" placement="top-end">
+                        <IconButton onClick={handleEditPicture} className="button">
+                            <EditIcon color="primary" />
+                        </IconButton>
+                    </Tooltip>
                 </div>
                 <hr />
                 <div className='profile-details'>
@@ -54,7 +76,7 @@ function Profile(props) {
                     <span>Joined {dayjs(credentials.createdAt).format('MMM YYYY')}</span>
                 </div>
             </div>
-        </Paper>
+        </Paper >
     ) : (
             <Paper className={classes.paper}>
                 <Typography variant="body2" align="center">

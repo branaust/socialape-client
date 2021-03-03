@@ -92,6 +92,16 @@ export function AuthProvider(props) {
             })
     }
 
+    // Upload User Image
+    const uploadImage = (formData) => {
+        setLoading(true)
+        axios.post('/user/image', formData)
+            .then(() => {
+                getUserData()
+            })
+            .catch(err => console.log(err))
+    }
+
     useEffect(() => {
         const token = localStorage.FBIdToken;
         if (token) {
@@ -136,7 +146,8 @@ export function AuthProvider(props) {
         handleLogin,
         handleSignup,
         logoutUser,
-        getUserData
+        getUserData,
+        uploadImage
     }
 
     return (
