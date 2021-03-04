@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import axios from 'axios'
 
@@ -12,9 +12,7 @@ export function DataProvider(props) {
     const { user, setUser } = useAuth()
     const [dataLoading, setDataLoading] = useState(false)
     const [screams, setScreams] = useState([])
-    const [likes, setLikes] = useState([])
-    const [likedScream, setLikedScream] = useState(null)
-    const [unlikedScream, setUnlikedScream] = useState(null)
+
 
 
     // Get All Screams
@@ -50,7 +48,6 @@ export function DataProvider(props) {
     const likeScream = (screamId) => {
         axios.get(`/scream/${screamId}/like`)
             .then(res => {
-                setLikedScream(res.data)
                 let index = screams.findIndex((scream) => scream.screamId === res.data.screamId)
                 let newArr = [...screams]
                 newArr[index] = res.data
@@ -70,7 +67,6 @@ export function DataProvider(props) {
     const unlikeScream = (screamId) => {
         axios.get(`/scream/${screamId}/unlike`)
             .then(res => {
-                setUnlikedScream(res.data)
                 let index = screams.findIndex((scream) => scream.screamId === res.data.screamId)
                 let newArr = [...screams]
                 newArr[index] = res.data
@@ -92,7 +88,6 @@ export function DataProvider(props) {
         getScreams,
         likeScream,
         unlikeScream,
-        likes
 
     }
 

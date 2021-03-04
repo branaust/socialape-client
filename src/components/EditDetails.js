@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import styles from '../styles/EditDetailsStyles'
 import { useAuth } from '../contexts/AuthContext'
 import useToggleState from '../hooks/useToggleState'

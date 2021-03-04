@@ -81,7 +81,6 @@ export function AuthProvider(props) {
         setLoading(true)
         axios.get('/user')
             .then(res => {
-                console.log(res)
                 setUser(res.data)
                 setAuthenticated(true)
                 setLoading(false)
@@ -123,7 +122,6 @@ export function AuthProvider(props) {
                 setAuthenticated(true)
                 axios.defaults.headers.common['Authorization'] = token
                 getUserData()
-                console.log(authenticated)
             }
         }
     }, [])

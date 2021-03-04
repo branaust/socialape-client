@@ -25,7 +25,7 @@ export default function Navbar() {
                         </ToolTipButton>
                         <ToolTipButton tip="Home">
                             <Link to="/">
-                                <HomeIcon color="Primary" />
+                                <HomeIcon color="primary" />
                             </Link>
                         </ToolTipButton>
                         <ToolTipButton tip="Notifications">

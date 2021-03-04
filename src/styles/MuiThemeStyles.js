@@ -1,4 +1,4 @@
-export default {
+const styles = {
     palette: {
         primary: {
             light: '#64b5f6',
@@ -14,3 +14,5 @@ export default {
         },
     }
 }
+
+export default styles

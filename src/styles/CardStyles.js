@@ -1,4 +1,4 @@
-export default {
+const styles = {
     card: {
         display: 'flex',
         marginBottom: 20,
@@ -11,3 +11,5 @@ export default {
         objectFit: 'cover'
     }
 }
+
+export default styles

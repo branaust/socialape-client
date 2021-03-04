@@ -1,4 +1,4 @@
-export default {
+const styles = {
     paper: {
         padding: 20
     },
@@ -45,3 +45,5 @@ export default {
         }
     }
 }
+
+export default styles

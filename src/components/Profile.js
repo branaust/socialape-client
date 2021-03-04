@@ -58,7 +58,7 @@ function Profile(props) {
                         @{credentials.handle}
                     </MuiLink>
                     <hr />
-                    {credentials.bio && <Typography variant="body2">{credentials.bio}</Typography>}
+                    {credentials.bio && <Typography variant="body2" component={'span'}>{credentials.bio}</Typography>}
                     <hr />
                     {credentials.location && (
                         <Fragment>
@@ -86,7 +86,7 @@ function Profile(props) {
         </Paper >
     ) : (
             <Paper className={classes.paper}>
-                <Typography variant="body2" align="center">
+                <Typography variant="body2" align="center" component={'span'}>
                     No Profile Found, Please login again
                     <div className={classes.buttons}>
                         <Button variant="contained" color="primary" component={Link} to="/login">

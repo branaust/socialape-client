@@ -70,7 +70,9 @@ function Scream(props) {
             <CardMedia
                 className={classes.image}
                 image={userImage}
-                title='Profile Image' />
+                title='Profile Image'
+                component={'span'}
+            />
 
             <CardContent className={classes.content}>
                 <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color='primary'>

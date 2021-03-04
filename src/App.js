@@ -11,7 +11,7 @@ import { DataProvider } from './contexts/DataContext'
 
 // Componenets
 import Navbar from './components/Navbar'
-import PrivateRoute from './util/PrivateRoute'
+// import PrivateRoute from './util/PrivateRoute'
 import AuthRoute from './util/AuthRoute'
 
 // Pages

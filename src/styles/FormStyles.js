@@ -1,4 +1,4 @@
-export default {
+const styles = {
     form: {
         textAlign: 'center',
     },
@@ -28,3 +28,4 @@ export default {
         fontSize: '15px',
     }
 }
+export default styles
