@@ -7,6 +7,7 @@ import { useData } from '../contexts/DataContext'
 import { useAuth } from '../contexts/AuthContext'
 import ToolTipButton from '../components/ToolTipButton'
 import DeleteScream from '../components/DeleteScream'
+import ScreamDialog from '../components/ScreamDialog'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -96,6 +97,7 @@ function Scream(props) {
                     <ChatIcon color="primary" />
                 </ToolTipButton>
                 <span>{commentCount} Comments</span>
+                <ScreamDialog screamId={screamId} userHandle={userHandle} />
             </CardContent>
         </Card >
 

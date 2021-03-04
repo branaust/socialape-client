@@ -13,8 +13,8 @@ export function DataProvider(props) {
     const [dataLoading, setDataLoading] = useState(false)
     const [screams, setScreams] = useState([])
     const [errors, setErrors] = useState(null)
-    const [loading, setLoading] = useState(false)
-
+    const [scream, setScream] = useState({})
+    const [screamLoading, setScreamLoading] = useState(false)
 
     // Get All Screams
     const getScreams = () => {
@@ -82,16 +82,27 @@ export function DataProvider(props) {
 
     // POST A Scream
     const postScream = (newScream) => {
-        setLoading(true)
         axios.post('/scream', newScream)
             .then((res) => {
                 let newArr = [res.data, ...screams]
                 setScreams(newArr)
-                setLoading(false)
             })
             .catch(err => {
                 setErrors(err.response.data)
-                setLoading(false)
+            })
+    }
+
+    const getScream = (screamId) => {
+        setScreamLoading(true)
+        axios.get(`/scream/${screamId}`)
+            .then((res) => {
+                setScream(res.data)
+                setScreamLoading(false)
+            })
+            .catch(err => {
+                setScream(null)
+                console.log(err)
+                setScreamLoading(false)
             })
     }
 
@@ -101,10 +112,12 @@ export function DataProvider(props) {
         errors,
         setErrors,
         dataLoading,
-        loading,
+        screamLoading,
         // Functions
         screams,
+        scream,
         getScreams,
+        getScream,
         likeScream,
         unlikeScream,
         deleteScream,
