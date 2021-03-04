@@ -2,12 +2,12 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import ToolTipButton from './ToolTipButton'
+import PostScream from './PostScream'
 
 // MUI
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import Notifications from '@material-ui/icons/Notifications'
 
@@ -20,9 +20,7 @@ export default function Navbar() {
             <Toolbar className="nav-container">
                 {authenticated ? (
                     <Fragment>
-                        <ToolTipButton tip="Post New Scream">
-                            <AddIcon color="primary" />
-                        </ToolTipButton>
+                        <PostScream />
                         <ToolTipButton tip="Home">
                             <Link to="/">
                                 <HomeIcon color="primary" />

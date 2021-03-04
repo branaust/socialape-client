@@ -12,6 +12,8 @@ export function DataProvider(props) {
     const { user, setUser } = useAuth()
     const [dataLoading, setDataLoading] = useState(false)
     const [screams, setScreams] = useState([])
+    const [errors, setErrors] = useState(null)
+    const [loading, setLoading] = useState(false)
 
 
     // Get All Screams
@@ -69,7 +71,7 @@ export function DataProvider(props) {
     // Delete A Scream
     const deleteScream = (screamId) => {
         axios.delete(`/scream/${screamId}`)
-            .then((res) => {
+            .then(() => {
                 let index = screams.findIndex((scream) => scream.screamId === screamId);
                 let newArr = [...screams]
                 newArr.splice(index, 1);
@@ -78,15 +80,35 @@ export function DataProvider(props) {
             .catch(err => console.log(err))
     }
 
+    // POST A Scream
+    const postScream = (newScream) => {
+        setLoading(true)
+        axios.post('/scream', newScream)
+            .then((res) => {
+                let newArr = [res.data, ...screams]
+                setScreams(newArr)
+                setLoading(false)
+            })
+            .catch(err => {
+                setErrors(err.response.data)
+                setLoading(false)
+            })
+    }
+
     const value = {
         // State
         dataLoading,
+        errors,
+        setErrors,
+        dataLoading,
+        loading,
         // Functions
         screams,
         getScreams,
         likeScream,
         unlikeScream,
         deleteScream,
+        postScream
 
     }
 
