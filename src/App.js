@@ -7,6 +7,7 @@ import history from './util/history'
 
 // Contexts
 import { AuthProvider } from './contexts/AuthContext'
+import { DataProvider } from './contexts/DataContext'
 
 // Componenets
 import Navbar from './components/Navbar'
@@ -25,18 +26,20 @@ const theme = createMuiTheme(styles)
 function App() {
   return (
     <AuthProvider>
-      <MuiThemeProvider theme={theme}>
-        <Router history={history}>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <AuthRoute path="/signup" component={Signup} />
-              <AuthRoute path="/login" component={Login} />
-            </Switch>
-          </div>
-        </Router>
-      </MuiThemeProvider>
+      <DataProvider>
+        <MuiThemeProvider theme={theme}>
+          <Router history={history}>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <AuthRoute path="/signup" component={Signup} />
+                <AuthRoute path="/login" component={Login} />
+              </Switch>
+            </div>
+          </Router>
+        </MuiThemeProvider>
+      </DataProvider>
     </AuthProvider>
   );
 }

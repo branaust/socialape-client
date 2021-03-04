@@ -3,23 +3,22 @@ import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
 import Scream from '../components/Scream.js'
 import Profile from '../components/Profile.js'
+import { useData } from '../contexts/DataContext'
+import { useAuth } from '../contexts/AuthContext'
 
 
 function Home() {
 
-    useEffect(() => {
-        axios.get('/screams')
-            .then(res => {
-                setScreams(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
 
-    const [screams, setScreams] = useState(null)
-    let recentScreamsMarkup = screams ?
+    const { screams, dataLoading, getScreams } = useData()
+    const { user } = useAuth()
+
+    let recentScreamsMarkup = !dataLoading ?
         (screams.map(scream => <Scream scream={scream} key={scream.screamId} />)) : <p>Loading...</p>
+
+    useEffect(() => {
+        getScreams()
+    }, [])
 
     return (
         <Grid container spacing={10}>

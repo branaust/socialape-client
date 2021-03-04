@@ -150,6 +150,7 @@ export function AuthProvider(props) {
         errors,
         setErrors,
         user,
+        setUser,
         authenticated,
         setAuthenticated,
         // Functions
