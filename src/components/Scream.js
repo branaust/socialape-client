@@ -6,6 +6,7 @@ import styles from '../styles/CardStyles'
 import { useData } from '../contexts/DataContext'
 import { useAuth } from '../contexts/AuthContext'
 import ToolTipButton from '../components/ToolTipButton'
+import DeleteScream from '../components/DeleteScream'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -31,7 +32,7 @@ function Scream(props) {
             commentCount }
     } = props
 
-    const { user, authenticated } = useAuth()
+    const { user, authenticated, loading } = useAuth()
     const { likeScream, unlikeScream } = useData()
 
     const likedScream = () => {
@@ -65,6 +66,10 @@ function Scream(props) {
                 )
         )
 
+    const deleteButton = !loading && authenticated ? (userHandle === user.credentials.handle &&
+        <DeleteScream screamId={screamId} />
+    ) : null
+
     return (
         <Card className={classes.card}>
             <CardMedia
@@ -78,6 +83,7 @@ function Scream(props) {
                 <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color='primary'>
                     {userHandle}
                 </Typography>
+                {deleteButton}
                 <Typography variant="body2" color="textSecondary">
                     {dayjs(createdAt).fromNow()}
                 </Typography>

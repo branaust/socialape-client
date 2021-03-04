@@ -8,10 +8,13 @@ const styles = {
         },
         secondary: {
             light: '#ffe082',
-            main: '#ffe57f',
+            main: '#f44336',
             dark: '#ffd740',
             contrastText: '#000',
         },
+        tertiary: {
+
+        }
     }
 }
 

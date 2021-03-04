@@ -14,7 +14,6 @@ export function DataProvider(props) {
     const [screams, setScreams] = useState([])
 
 
-
     // Get All Screams
     const getScreams = () => {
         setDataLoading(true)
@@ -29,19 +28,6 @@ export function DataProvider(props) {
             })
     }
 
-    // const getLikes = () => {
-    //     setDataLoading(true)
-    //     axios.get('/likes')
-    //         .then(res => {
-    //             setLikes(res.data)
-    //             setDataLoading(false)
-    //         })
-    //         .catch(err => {
-    //             setLikes([])
-    //             setDataLoading(false)
-    //             console.log(err)
-    //         })
-    // }
 
     // Like A Scream
 
@@ -80,6 +66,18 @@ export function DataProvider(props) {
             .catch(err => console.log(err))
     }
 
+    // Delete A Scream
+    const deleteScream = (screamId) => {
+        axios.delete(`/scream/${screamId}`)
+            .then((res) => {
+                let index = screams.findIndex((scream) => scream.screamId === screamId);
+                let newArr = [...screams]
+                newArr.splice(index, 1);
+                setScreams(newArr)
+            })
+            .catch(err => console.log(err))
+    }
+
     const value = {
         // State
         dataLoading,
@@ -88,6 +86,7 @@ export function DataProvider(props) {
         getScreams,
         likeScream,
         unlikeScream,
+        deleteScream,
 
     }
 
