@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import styles from '../../styles/CommentsStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { useData } from '../../contexts/DataContext'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'

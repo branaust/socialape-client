@@ -23,7 +23,7 @@ import ChatIcon from '@material-ui/icons/Chat'
 function ScreamDialog(props) {
 
     const { screamId, userHandle, classes } = props
-    const { getScream, scream, screamLoading, setErrors } = useData()
+    const { getScream, scream, screamLoading, setErrors, comments } = useData()
     const [open, toggleOpen] = useToggleState(false)
 
     const handleOpen = () => {
@@ -62,7 +62,7 @@ function ScreamDialog(props) {
             </Grid>
             <hr className={classes.visibleSeparator} />
             <CommentForm screamId={screamId} />
-            <Comments comments={scream.comments} />
+            <Comments comments={comments} />
         </Grid >
     )
 

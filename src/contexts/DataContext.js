@@ -15,6 +15,7 @@ export function DataProvider(props) {
     const [errors, setErrors] = useState(null)
     const [scream, setScream] = useState({})
     const [screamLoading, setScreamLoading] = useState(false)
+    const [comments, setComments] = useState([])
 
     // Get All Screams
     const getScreams = () => {
@@ -105,6 +106,7 @@ export function DataProvider(props) {
             .then((res) => {
                 setScream(res.data)
                 setScreamLoading(false)
+                setComments(res.data.comments)
             })
             .catch(err => {
                 setScream(null)
@@ -120,6 +122,7 @@ export function DataProvider(props) {
                 let updatedComments = [res.data, ...scream.comments]
                 let updatedScream = { ...scream, comments: updatedComments }
                 setScream(updatedScream)
+                setComments(updatedComments)
                 setErrors(null)
             })
             .catch(err => {
@@ -134,6 +137,8 @@ export function DataProvider(props) {
         setErrors,
         dataLoading,
         screamLoading,
+        comments,
+        setComments,
         // Functions
         screams,
         scream,
