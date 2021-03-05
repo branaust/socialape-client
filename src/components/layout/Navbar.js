@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import ToolTipButton from './ToolTipButton'
-import PostScream from './PostScream'
+import { useAuth } from '../../contexts/AuthContext'
+import ToolTipButton from '../scream/ToolTipButton'
+import PostScream from '../scream/PostScream'
 
 // MUI
 import AppBar from '@material-ui/core/AppBar'
@@ -31,12 +31,12 @@ export default function Navbar() {
                         </ToolTipButton>
                     </Fragment>
                 ) : (
-                        <Fragment>
-                            <Button color="inherit" component={Link} to="/">Home</Button>
-                            <Button color="inherit" component={Link} to="/login">Login</Button>
-                            <Button color="inherit" component={Link} to="/signup">Signup</Button>
-                        </Fragment>
-                    )
+                    <Fragment>
+                        <Button color="inherit" component={Link} to="/">Home</Button>
+                        <Button color="inherit" component={Link} to="/login">Login</Button>
+                        <Button color="inherit" component={Link} to="/signup">Signup</Button>
+                    </Fragment>
+                )
                 }
             </Toolbar >
         </AppBar >

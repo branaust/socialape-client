@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import ToolTipButton from './ToolTipButton'
-import { useData } from '../contexts/DataContext'
-import styles from '../styles/DeleteScreamStyles'
-import useToggleState from '../hooks/useToggleState'
+import { useData } from '../../contexts/DataContext'
+import styles from '../../styles/DeleteScreamStyles'
+import useToggleState from '../../hooks/useToggleState'
 
 // MUI
 import Button from '@material-ui/core/Button'

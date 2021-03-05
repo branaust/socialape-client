@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
-import Scream from '../components/Scream.js'
-import Profile from '../components/Profile.js'
+import Scream from '../components/scream/Scream.js'
+import Profile from '../components/profile/Profile.js'
 import { useData } from '../contexts/DataContext'
 
 

@@ -10,7 +10,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { DataProvider } from './contexts/DataContext'
 
 // Componenets
-import Navbar from './components/Navbar'
+import Navbar from './components/layout/Navbar'
 // import PrivateRoute from './util/PrivateRoute'
 import AuthRoute from './util/AuthRoute'
 

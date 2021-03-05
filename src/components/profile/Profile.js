@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
-import { useAuth } from '../contexts/AuthContext'
-import styles from '../styles/ProfileStyles'
+import { useAuth } from '../../contexts/AuthContext'
+import styles from '../../styles/ProfileStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
-import EditDetils from '../components/EditDetails'
-import ToolTipButton from '../components/ToolTipButton'
+import EditDetils from '../profile/EditDetails'
+import ToolTipButton from '../scream/ToolTipButton'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -85,20 +85,20 @@ function Profile(props) {
             </div>
         </Paper >
     ) : (
-            <Paper className={classes.paper}>
-                <Typography variant="body2" align="center" component={'span'}>
-                    No Profile Found, Please login again
+        <Paper className={classes.paper}>
+            <Typography variant="body2" align="center" component={'span'}>
+                No Profile Found, Please login again
                     <div className={classes.buttons}>
-                        <Button variant="contained" color="primary" component={Link} to="/login">
-                            Login
+                    <Button variant="contained" color="primary" component={Link} to="/login">
+                        Login
                         </Button>
-                        <Button variant="contained" color="secondary" component={Link} to="/signup">
-                            Signup
+                    <Button variant="contained" color="secondary" component={Link} to="/signup">
+                        Signup
                         </Button>
-                    </div>
-                </Typography>
-            </Paper>
-        )) : (<p>loading...</p>)
+                </div>
+            </Typography>
+        </Paper>
+    )) : (<p>loading...</p>)
 
     return (
         <div>

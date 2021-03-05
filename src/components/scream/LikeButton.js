@@ -1,7 +1,7 @@
 import React from 'react'
-import { useData } from '../contexts/DataContext'
-import { useAuth } from '../contexts/AuthContext'
-import ToolTipButton from '../components/ToolTipButton'
+import { useData } from '../../contexts/DataContext'
+import { useAuth } from '../../contexts/AuthContext'
+import ToolTipButton from './ToolTipButton'
 import { Link } from 'react-router-dom'
 
 // MUI
@@ -37,16 +37,16 @@ function LikeButton(props) {
                 </ToolTipButton >
             </Link >
         ) : (
-                likedScream() ? (
-                    <ToolTipButton tip="Unlike" onClick={userUnlikeScream}>
-                        <FavoriteFilled color="primary" />
-                    </ToolTipButton>
-                ) : (
-                        <ToolTipButton tip="Like" onClick={userLikeScream}>
-                            <FavoriteBorder color="primary" />
-                        </ToolTipButton>
-                    )
+            likedScream() ? (
+                <ToolTipButton tip="Unlike" onClick={userUnlikeScream}>
+                    <FavoriteFilled color="primary" />
+                </ToolTipButton>
+            ) : (
+                <ToolTipButton tip="Like" onClick={userLikeScream}>
+                    <FavoriteBorder color="primary" />
+                </ToolTipButton>
             )
+        )
     )
 }
 

@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
-import styles from '../styles/ScreamDialogStyles'
-import ToolTipButton from '../components/ToolTipButton'
+import styles from '../../styles/ScreamDialogStyles'
+import ToolTipButton from './ToolTipButton'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
-import { useData } from '../contexts/DataContext'
-import useToggleState from '../hooks/useToggleState'
-import LikeButton from '../components/LikeButton'
+import { useData } from '../../contexts/DataContext'
+import useToggleState from '../../hooks/useToggleState'
+import LikeButton from './LikeButton'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -34,31 +34,31 @@ function ScreamDialog(props) {
             <CircularProgress size={200} thickness={2} />
         </div>
     ) : (
-            <Grid container spacing={16}>
-                <Grid item sm={5}>
-                    <img src={scream.userImage} alt="profile" className={classes.profileImage} />
-                </Grid >
-                <Grid item sm={7} className={classes.body}>
-                    <Typography component={Link} color="primary" variant="h5" to={`/users/${userHandle}`} >
-                        @{scream.userHandle}
-                    </Typography>
-                    <hr className={classes.invisibleSeparator} />
-                    <Typography variant="body2" color="textSecondary" >
-                        {dayjs(scream.createdAt).format('h:mm a, MMMM DD YYYY')}
-                    </Typography>
-                    <hr className={classes.invisibleSeparator} />
-                    <Typography variant="body1">
-                        {scream.body}
-                    </Typography>
-                    <LikeButton screamId={screamId} />
-                    <span>{scream.likeCount} likes</span>
-                    <ToolTipButton tip="Comments">
-                        <ChatIcon color="primary" />
-                    </ToolTipButton>
-                    <span>{scream.commentCount} comments</span>
-                </Grid>
+        <Grid container spacing={16}>
+            <Grid item sm={5}>
+                <img src={scream.userImage} alt="profile" className={classes.profileImage} />
             </Grid >
-        )
+            <Grid item sm={7} className={classes.body}>
+                <Typography component={Link} color="primary" variant="h5" to={`/users/${userHandle}`} >
+                    @{scream.userHandle}
+                </Typography>
+                <hr className={classes.invisibleSeparator} />
+                <Typography variant="body2" color="textSecondary" >
+                    {dayjs(scream.createdAt).format('h:mm a, MMMM DD YYYY')}
+                </Typography>
+                <hr className={classes.invisibleSeparator} />
+                <Typography variant="body1">
+                    {scream.body}
+                </Typography>
+                <LikeButton screamId={screamId} />
+                <span>{scream.likeCount} likes</span>
+                <ToolTipButton tip="Comments">
+                    <ChatIcon color="primary" />
+                </ToolTipButton>
+                <span>{scream.commentCount} comments</span>
+            </Grid>
+        </Grid >
+    )
 
     return (
         <Fragment>
