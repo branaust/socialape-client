@@ -130,6 +130,20 @@ export function DataProvider(props) {
             })
     }
 
+    // Get User Profile
+    const getUserProfile = (userHandle) => {
+        setDataLoading(true)
+        axios.get(`/user/${userHandle}`)
+            .then(res => {
+                setScreams(res.data.userData.screams)
+                setDataLoading(false)
+            })
+            .catch(() => {
+                setScreams(null)
+                setDataLoading(false)
+            })
+    }
+
     const value = {
         // State
         dataLoading,
@@ -148,7 +162,8 @@ export function DataProvider(props) {
         unlikeScream,
         deleteScream,
         postScream,
-        submitComment
+        submitComment,
+        getUserProfile
 
     }
 
