@@ -15,6 +15,15 @@ const styles = {
     closeButton: {
         position: 'absolute',
         left: '90%'
+    },
+    expandButton: {
+        position: "absolute",
+        left: '90%'
+    },
+    spinnerDiv: {
+        textAlign: 'center',
+        marginTop: 20,
+        marginBottom: 20
     }
 }
 

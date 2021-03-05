@@ -32,12 +32,14 @@ function ScreamDialog(props) {
     }
 
     const dialogMarkup = screamLoading ? (
-        <CircularProgress />
+        <div className={classes.spinnerDiv}>
+            <CircularProgress size={200} thickness={2} />
+        </div>
     ) : (
             <Grid container spacing={16}>
                 <Grid item sm={5}>
                     <img src={scream.userImage} alt="profile" className={classes.profileImage} />
-                </Grid>
+                </Grid >
                 <Grid item sm={7} className={classes.body}>
                     <Typography component={Link} color="primary" variant="h5" to={`/users/${userHandle}`} >
                         @{scream.userHandle}
@@ -51,7 +53,7 @@ function ScreamDialog(props) {
                         {scream.body}
                     </Typography>
                 </Grid>
-            </Grid>
+            </Grid >
         )
 
     return (
