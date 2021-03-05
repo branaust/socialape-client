@@ -47,6 +47,9 @@ export function DataProvider(props) {
                 }]
                 let updatedUser = { ...user, likes: updatedLikes }
                 setUser(updatedUser)
+                if (scream.screamId === res.data.screamId) {
+                    setScream(res.data)
+                }
             })
             .catch(err => console.log(err))
     }
@@ -64,6 +67,9 @@ export function DataProvider(props) {
                 )
                 let updatedUser = { ...user, likes: updatedLikes }
                 setUser(updatedUser)
+                if (scream.screamId === res.data.screamId) {
+                    setScream(res.data)
+                }
             })
             .catch(err => console.log(err))
     }

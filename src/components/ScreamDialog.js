@@ -5,20 +5,18 @@ import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { useData } from '../contexts/DataContext'
 import useToggleState from '../hooks/useToggleState'
+import LikeButton from '../components/LikeButton'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import CloseIcon from '@material-ui/icons/Close'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography'
 import UnfoldMore from '@material-ui/icons/UnfoldMore'
-
+import ChatIcon from '@material-ui/icons/Chat'
 
 function ScreamDialog(props) {
 
@@ -52,6 +50,12 @@ function ScreamDialog(props) {
                     <Typography variant="body1">
                         {scream.body}
                     </Typography>
+                    <LikeButton screamId={screamId} />
+                    <span>{scream.likeCount} likes</span>
+                    <ToolTipButton tip="Comments">
+                        <ChatIcon color="primary" />
+                    </ToolTipButton>
+                    <span>{scream.commentCount} comments</span>
                 </Grid>
             </Grid >
         )

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from '../styles/CardStyles'
-import { useData } from '../contexts/DataContext'
 import { useAuth } from '../contexts/AuthContext'
 import ToolTipButton from '../components/ToolTipButton'
 import DeleteScream from '../components/DeleteScream'
 import ScreamDialog from '../components/ScreamDialog'
+import LikeButton from '../components/LikeButton'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -16,8 +16,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography'
 import ChatIcon from '@material-ui/icons/Chat'
-import FavoriteFilled from '@material-ui/icons/Favorite'
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
+
 
 
 function Scream(props) {
@@ -34,38 +33,6 @@ function Scream(props) {
     } = props
 
     const { user, authenticated, loading } = useAuth()
-    const { likeScream, unlikeScream } = useData()
-
-    const likedScream = () => {
-        if (user.likes && user.likes.find(like => like.screamId === screamId)) {
-            return true
-        } else return false
-    }
-
-    const userLikeScream = () => {
-        likeScream(screamId)
-    }
-    const userUnlikeScream = () => {
-        unlikeScream(screamId)
-    }
-
-    const likeButton = !authenticated ? (
-        <ToolTipButton tip="Like">
-            <Link to="/login">
-                <FavoriteBorder color="primary" />
-            </Link>
-        </ToolTipButton>
-    ) : (
-            likedScream() ? (
-                <ToolTipButton tip="Unlike" onClick={userUnlikeScream}>
-                    <FavoriteFilled color="primary" />
-                </ToolTipButton>
-            ) : (
-                    <ToolTipButton tip="Like" onClick={userLikeScream}>
-                        <FavoriteBorder color="primary" />
-                    </ToolTipButton>
-                )
-        )
 
     const deleteButton = !loading && authenticated ? (userHandle === user.credentials.handle &&
         <DeleteScream screamId={screamId} />
@@ -91,7 +58,7 @@ function Scream(props) {
                 <Typography variant="body1" >
                     {body}
                 </Typography>
-                {likeButton}
+                <LikeButton screamId={screamId} />
                 <span>{likeCount} Likes</span>
                 <ToolTipButton tip="comments">
                     <ChatIcon color="primary" />

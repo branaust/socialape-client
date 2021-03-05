@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { useAuth } from '../contexts/AuthContext'
 import { useData } from '../contexts/DataContext'
 import useToggleState from '../hooks/useToggleState'
 import useInputState from '../hooks/useInputState'
@@ -7,7 +6,6 @@ import ToolTipButton from '../components/ToolTipButton'
 import styles from '../styles/PostScreamStyles'
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
-import EditIcon from '@material-ui/icons/Edit'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
@@ -20,8 +18,7 @@ import CloseIcon from '@material-ui/icons/Close'
 function PostScream(props) {
 
     const { classes } = props
-    const { user } = useAuth()
-    const { postScream, errors, setErrors, dataLoading, loading } = useData()
+    const { postScream, errors, setErrors, dataLoading } = useData()
     const [open, toggleOpen] = useToggleState()
     const [screamBody, updateScreamBody, resetScreamBody] = useInputState()
 
