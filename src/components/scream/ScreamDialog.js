@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { useData } from '../../contexts/DataContext'
 import useToggleState from '../../hooks/useToggleState'
 import LikeButton from './LikeButton'
+import Comments from './Comments'
+import CommentForm from './CommentForm'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -21,12 +23,13 @@ import ChatIcon from '@material-ui/icons/Chat'
 function ScreamDialog(props) {
 
     const { screamId, userHandle, classes } = props
-    const { getScream, scream, screamLoading } = useData()
+    const { getScream, scream, screamLoading, setErrors } = useData()
     const [open, toggleOpen] = useToggleState(false)
 
     const handleOpen = () => {
         toggleOpen()
         getScream(screamId)
+        setErrors(null)
     }
 
     const dialogMarkup = screamLoading ? (
@@ -57,6 +60,9 @@ function ScreamDialog(props) {
                 </ToolTipButton>
                 <span>{scream.commentCount} comments</span>
             </Grid>
+            <hr className={classes.visibleSeparator} />
+            <CommentForm screamId={screamId} />
+            <Comments comments={scream.comments} />
         </Grid >
     )
 

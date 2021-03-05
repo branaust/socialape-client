@@ -98,6 +98,7 @@ export function DataProvider(props) {
             })
     }
 
+    // Get Scream
     const getScream = (screamId) => {
         setScreamLoading(true)
         axios.get(`/scream/${screamId}`)
@@ -109,6 +110,20 @@ export function DataProvider(props) {
                 setScream(null)
                 console.log(err)
                 setScreamLoading(false)
+            })
+    }
+
+    // Submit A Comment
+    const submitComment = (screamId, commentData) => {
+        axios.post(`/scream/${screamId}/comment`, commentData)
+            .then(res => {
+                let updatedComments = [res.data, ...scream.comments]
+                let updatedScream = { ...scream, comments: updatedComments }
+                setScream(updatedScream)
+                setErrors(null)
+            })
+            .catch(err => {
+                setErrors('Field Required')
             })
     }
 
@@ -127,7 +142,8 @@ export function DataProvider(props) {
         likeScream,
         unlikeScream,
         deleteScream,
-        postScream
+        postScream,
+        submitComment
 
     }
 
