@@ -14,12 +14,29 @@ function User(props) {
     const { classes } = props
     const { getUserProfile, screams, dataLoading } = useData()
     const [profile, setProfile] = useState(null)
+    const [screamIdParam, setScreamIdParam] = useState(null)
 
-    let screamsMarkup = !dataLoading ? (screams === null ? (<p>This User Has Not Posted Any Scream</p>) :
-        (screams.map(scream => <Scream scream={scream} key={scream.screamId} />))) : <p>Loading...</p>
+    let screamsMarkup = dataLoading ? (
+        <p>Data Loading...</p>
+    ) : screams === null ? (
+        <p>This User Has Not Yet Posted Any Screams</p>
+    ) : !screamIdParam ? (
+        screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
+    ) : (
+        screams.map(scream => {
+            if (scream.screamId !== screamIdParam)
+                return <Scream key={scream.screamId} scream={scream} />
+            else {
+                return <Scream key={scream.screamId} scream={scream} openDialog />
+            }
+        })
+    )
 
     useEffect(() => {
         const handle = props.match.params.handle
+        const screamId = props.match.params.screamId
+
+        if (screamId) setScreamIdParam(screamId)
         getUserProfile(handle)
         axios.get(`/user/${handle}`)
             .then(res => {

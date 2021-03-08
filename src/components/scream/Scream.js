@@ -29,7 +29,8 @@ function Scream(props) {
             userHandle,
             screamId,
             likeCount,
-            commentCount }
+            commentCount,
+        }, openDialog
     } = props
 
     const { user, authenticated, loading } = useAuth()
@@ -64,7 +65,7 @@ function Scream(props) {
                     <ChatIcon color="primary" />
                 </ToolTipButton>
                 <span>{commentCount} Comments</span>
-                <ScreamDialog screamId={screamId} userHandle={userHandle} />
+                <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={openDialog} />
             </CardContent>
         </Card >
 

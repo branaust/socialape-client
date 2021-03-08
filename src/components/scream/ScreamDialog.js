@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import styles from '../../styles/ScreamDialogStyles'
 import ToolTipButton from './ToolTipButton'
 import dayjs from 'dayjs'
@@ -22,15 +22,31 @@ import ChatIcon from '@material-ui/icons/Chat'
 
 function ScreamDialog(props) {
 
-    const { screamId, userHandle, classes } = props
+    const { screamId, userHandle, openDialog, classes } = props
     const { getScream, scream, screamLoading, setErrors, comments } = useData()
     const [open, toggleOpen] = useToggleState(false)
+    const [oldPath, setOldPath] = useState('')
+    const [newPath, setNewPath] = useState('')
 
     const handleOpen = () => {
         toggleOpen()
+        let oldPath = window.location.pathname;
+        const newPath = `/users/${userHandle}/scream/${screamId}`
+        if (oldPath === newPath) oldPath = `/users/${userHandle}`
+        window.history.pushState(null, null, newPath)
+        setOldPath(oldPath)
+        setNewPath(newPath)
+
         getScream(screamId)
         setErrors(null)
+
     }
+
+    const handleClose = () => {
+        toggleOpen()
+        window.history.pushState(null, null, oldPath)
+    }
+
 
     const dialogMarkup = screamLoading ? (
         <div className={classes.spinnerDiv}>
@@ -66,6 +82,13 @@ function ScreamDialog(props) {
         </Grid >
     )
 
+    useEffect(() => {
+        if (openDialog) {
+            handleOpen()
+
+        }
+    }, [])
+
     return (
         <Fragment>
             <ToolTipButton onClick={handleOpen} tip="Expand Scream" tipClassName={classes.expandButton}>
@@ -73,7 +96,7 @@ function ScreamDialog(props) {
             </ToolTipButton>
             <Dialog
                 open={open}
-                onClose={handleOpen}
+                onClose={handleClose}
                 fullWidth
                 maxWidth="sm"
             >
