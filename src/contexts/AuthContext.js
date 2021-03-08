@@ -111,6 +111,16 @@ export function AuthProvider(props) {
             .catch(err => console.log(err))
     }
 
+    // Mark NotificationsRead
+    const markNotificationsRead = (notificationsIds) => {
+        axios.post('/notifications', notificationsIds)
+            .then(res => {
+                user.notifications.forEach((n) => (n.read = true))
+            })
+            .catch(err => console.log(err))
+
+    }
+
     useEffect(() => {
         const token = localStorage.FBIdToken;
         if (token) {
@@ -157,7 +167,8 @@ export function AuthProvider(props) {
         logoutUser,
         getUserData,
         uploadImage,
-        editUserDetails
+        editUserDetails,
+        markNotificationsRead
     }
 
     return (

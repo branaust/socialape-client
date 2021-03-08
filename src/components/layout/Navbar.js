@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import ToolTipButton from '../scream/ToolTipButton'
 import PostScream from '../scream/PostScream'
+import Notifications from './Notifications'
 
 // MUI
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 import HomeIcon from '@material-ui/icons/Home'
-import Notifications from '@material-ui/icons/Notifications'
+
 
 export default function Navbar() {
 
@@ -26,9 +27,7 @@ export default function Navbar() {
                                 <HomeIcon color="primary" />
                             </Link>
                         </ToolTipButton>
-                        <ToolTipButton tip="Notifications">
-                            <Notifications color="primary" />
-                        </ToolTipButton>
+                        <Notifications />
                     </Fragment>
                 ) : (
                     <Fragment>
