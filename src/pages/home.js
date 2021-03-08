@@ -3,13 +3,14 @@ import Grid from '@material-ui/core/Grid'
 import Scream from '../components/scream/Scream.js'
 import Profile from '../components/profile/Profile.js'
 import { useData } from '../contexts/DataContext'
-
+import ScreamSkeleton from '../util/ScreamSkeleton'
+import ProfileSkeleton from '../util/ProfileSkeleton'
 
 function Home() {
     const { screams, dataLoading, getScreams } = useData()
 
     let recentScreamsMarkup = !dataLoading ?
-        (screams.map(scream => <Scream scream={scream} key={scream.screamId} />)) : <p>Loading...</p>
+        (screams.map(scream => <Scream scream={scream} key={scream.screamId} />)) : <ScreamSkeleton />
 
     useEffect(() => {
         getScreams()

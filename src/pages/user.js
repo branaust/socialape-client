@@ -5,6 +5,8 @@ import { useData } from '../contexts/DataContext'
 import styles from '../styles/userStyles'
 import StaticProfile from '../components/profile/StaticProfile'
 import withStyles from '@material-ui/core/styles/withStyles'
+import ScreamSkeleton from '../util/ScreamSkeleton'
+import ProfileSkeleton from '../util/ProfileSkeleton'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -17,7 +19,7 @@ function User(props) {
     const [screamIdParam, setScreamIdParam] = useState(null)
 
     let screamsMarkup = dataLoading ? (
-        <p>Data Loading...</p>
+        <ScreamSkeleton />
     ) : screams === null ? (
         <p>This User Has Not Yet Posted Any Screams</p>
     ) : !screamIdParam ? (
@@ -52,7 +54,7 @@ function User(props) {
             </Grid>
             <Grid item sm={4} xs={12}>
                 {profile === null ? (
-                    <p>Loading Profile...</p>
+                    <ProfileSkeleton />
                 ) : <StaticProfile profile={profile} />}
             </Grid>
         </Grid>

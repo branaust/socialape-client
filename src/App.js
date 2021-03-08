@@ -19,10 +19,12 @@ import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
 import User from './pages/user'
+import axios from 'axios';
 
 
 const theme = createMuiTheme(styles)
 
+axios.defaults.baseURL = "https://us-central1-socialape-12f18.cloudfunctions.net/api"
 
 function App() {
   return (

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import EditDetils from '../profile/EditDetails'
 import ToolTipButton from '../scream/ToolTipButton'
+import ProfileSkeleton from '../../util/ProfileSkeleton'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -98,7 +99,7 @@ function Profile(props) {
                 </div>
             </Typography>
         </Paper>
-    )) : (<p>loading...</p>)
+    )) : <ProfileSkeleton />
 
     return (
         <div>
