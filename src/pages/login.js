@@ -1,11 +1,10 @@
-import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
+import React, { useState, useEffect } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
 import { Link } from 'react-router-dom'
 import styles from '../styles/FormStyles'
-
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -15,8 +14,17 @@ import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Login(props) {
-    const { classes } = props
-    const { email, updateEmail, password, updatePassword, loading, errors, handleLogin } = useAuth()
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.UI.errors) {
+    //         setErrors(nexProps.UI.errors)
+    //     }
+    // }
+
+    useEffect(() => {
+        setErrors(props.UI.errors)
+    }, [props.UI.errors])
+
 
     return (
         <Grid container className={classes.form}>
@@ -78,8 +86,19 @@ function Login(props) {
 }
 
 Login.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
 }
 
+const mapStateToProps = (state) => ({
+    user: state.user,
+    UI: state.UI
+})
 
-export default withStyles(styles)(Login)
+const mapActionsToProps = {
+    loginUser
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Login))

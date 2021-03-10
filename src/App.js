@@ -9,6 +9,10 @@ import history from './util/history'
 import { AuthProvider } from './contexts/AuthContext'
 import { DataProvider } from './contexts/DataContext'
 
+// Redux
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
 // Componenets
 import Navbar from './components/layout/Navbar'
 // import PrivateRoute from './util/PrivateRoute'
