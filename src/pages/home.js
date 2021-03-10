@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
-import Scream from '../components/Scream.js'
-
+import Scream from '../components/scream/Scream.js'
+import Profile from '../components/profile/Profile.js'
+import { useData } from '../contexts/DataContext'
+import ScreamSkeleton from '../util/ScreamSkeleton'
+import ProfileSkeleton from '../util/ProfileSkeleton'
 
 function Home() {
+    const { screams, dataLoading, getScreams } = useData()
+
+    let recentScreamsMarkup = !dataLoading ?
+        (screams.map(scream => <Scream scream={scream} key={scream.screamId} />)) : <ScreamSkeleton />
 
     useEffect(() => {
-        axios.get('/screams')
-            .then(res => {
-                setScreams(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        getScreams()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    const [screams, setScreams] = useState(null)
-    let recentScreamsMarkup = screams ?
-        (screams.map(scream => <Scream scream={scream} key={scream.screamId} />)) : <p>Loading...</p>
 
     return (
         <Grid container spacing={10}>
@@ -26,7 +23,7 @@ function Home() {
                 {recentScreamsMarkup}
             </Grid>
             <Grid item sm={4} xs={12}>
-                <p>Profile</p>
+                <Profile />
             </Grid>
         </Grid>
     )

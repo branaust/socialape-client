@@ -1,4 +1,4 @@
-export default {
+const styles = {
     palette: {
         primary: {
             light: '#64b5f6',
@@ -8,9 +8,14 @@ export default {
         },
         secondary: {
             light: '#ffe082',
-            main: '#ffe57f',
+            main: '#f44336',
             dark: '#ffd740',
             contrastText: '#000',
         },
+        tertiary: {
+
+        }
     }
 }
+
+export default styles

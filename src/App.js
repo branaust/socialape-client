@@ -1,53 +1,55 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import styles from './styles/MuiThemeStyles'
-import jwtDecode from 'jwt-decode'
+import history from './util/history'
+
+// Contexts
+import { AuthProvider } from './contexts/AuthContext'
+import { DataProvider } from './contexts/DataContext'
 
 // Redux
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
 // Componenets
-import Navbar from './components/Navbar'
+import Navbar from './components/layout/Navbar'
+// import PrivateRoute from './util/PrivateRoute'
 import AuthRoute from './util/AuthRoute'
 
 // Pages
 import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
+import User from './pages/user'
+import axios from 'axios';
+
 
 const theme = createMuiTheme(styles)
 
-let authenticated;
-const token = localStorage.FBIdToken;
-if (token) {
-  const decodedToken = jwtDecode(token)
-  if (decodedToken.exp * 1000 < Date.now()) {
-    window.location.href = '/login'
-    authenticated = false
-  } else {
-    authenticated = true
-  }
-}
+axios.defaults.baseURL = "https://us-central1-socialape-12f18.cloudfunctions.net/api"
 
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
-        <Router>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <AuthRoute path="/signup" component={Signup} authenticated={authenticated} />
-              <AuthRoute path="/login" component={Login} authenticated={authenticated} />
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
-    </MuiThemeProvider>
+    <AuthProvider>
+      <DataProvider>
+        <MuiThemeProvider theme={theme}>
+          <Router history={history}>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <AuthRoute path="/signup" component={Signup} />
+                <AuthRoute path="/login" component={Login} />
+                <Route exact path="/users/:handle" component={User} />
+                <Route exact path="/users/:handle/scream/:screamId" component={User} />
+              </Switch>
+            </div>
+          </Router>
+        </MuiThemeProvider>
+      </DataProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,15 +1,10 @@
+import { useAuth } from '../contexts/AuthContext'
 import React, { useState, useEffect } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
-import useInputState from '../hooks/useInputState'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styles from '../styles/FormStyles'
-
-// Redux
-import { connect } from 'react-redux'
-import { loginUser } from '../redux/actions/userActions'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -18,21 +13,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
 function Login(props) {
-    const { classes, UI: { loading } } = props
-    const [email, updateEmail] = useInputState("")
-    const [password, updatePassword] = useInputState("")
-    const [errors, setErrors] = useState({})
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const userData = {
-            email,
-            password
-        }
-        props.loginUser(userData, props.history)
-    }
 
     // componentWillReceiveProps(nextProps) {
     //     if (nextProps.UI.errors) {
@@ -53,7 +34,7 @@ function Login(props) {
                 <Typography variant="h2" className={classes.pageTitle}>
                     Login
                 </Typography>
-                <form noValidate onSubmit={handleSubmit}>
+                <form noValidate onSubmit={handleLogin}>
                     <TextField
                         className={classes.textField}
                         onChange={updateEmail}
