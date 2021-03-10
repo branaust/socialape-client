@@ -4,18 +4,15 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import styles from './styles/MuiThemeStyles'
 import history from './util/history'
+import axios from 'axios';
 
 // Contexts
 import { AuthProvider } from './contexts/AuthContext'
 import { DataProvider } from './contexts/DataContext'
 
-// Redux
-import { Provider } from 'react-redux'
-import store from './redux/store'
 
 // Componenets
 import Navbar from './components/layout/Navbar'
-// import PrivateRoute from './util/PrivateRoute'
 import AuthRoute from './util/AuthRoute'
 
 // Pages
@@ -23,7 +20,7 @@ import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
 import User from './pages/user'
-import axios from 'axios';
+
 
 
 const theme = createMuiTheme(styles)

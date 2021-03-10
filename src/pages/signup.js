@@ -1,12 +1,11 @@
 import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import withStyles from '@material-ui/core/styles/withStyles'
-import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
 import { Link } from 'react-router-dom'
 import styles from '../styles/FormStyles'
 
-// MUI
+// MUI
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
@@ -28,6 +27,7 @@ function Signup(props) {
         errors,
         handleSignup
     } = useAuth()
+
 
 
     return (
@@ -110,10 +110,5 @@ function Signup(props) {
     )
 
 }
-
-Signup.propTypes = {
-    classes: PropTypes.object.isRequired
-}
-
 
 export default withStyles(styles)(Signup)
