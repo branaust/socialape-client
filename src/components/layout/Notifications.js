@@ -25,6 +25,8 @@ function Notifications(props) {
     const [open, toggleOpen] = useToggleState(false)
     const [anchorEl, setAnchorEl] = useState(null)
 
+    dayjs.extend(relativeTime);
+
     const handleOpen = (e) => {
         toggleOpen()
         setAnchorEl(e.target)
