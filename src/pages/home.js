@@ -10,7 +10,7 @@ function Home() {
     const { screams, dataLoading, getScreams } = useData()
 
     let recentScreamsMarkup = !dataLoading ?
-        (screams.map(scream => <Scream scream={scream} key={scream.screamId} />)) : <ScreamSkeleton />
+        (screams.map(scream => <Scream scream={scream} comments={scream.comments} key={scream.screamId} />)) : <ScreamSkeleton />
 
     useEffect(() => {
         getScreams()

@@ -2,7 +2,9 @@ import React, { Fragment } from 'react'
 import styles from '../../styles/CommentsStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
+import DeleteComment from '../../components/scream/DeleteComment'
 import { useData } from '../../contexts/DataContext'
+import { useAuth } from '../../contexts/AuthContext'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -13,11 +15,15 @@ import Typography from '@material-ui/core/Typography'
 function Comments(props) {
 
     const { classes, comments } = props
+    const { authenticated, user } = useAuth()
+    const { loading } = useData()
+
+
 
     return (
         <Grid container>
             {comments.map((comment, index) => {
-                const { body, createdAt, userImage, userHandle } = comment;
+                const { body, createdAt, userImage, userHandle, commentId } = comment;
                 return (
                     <Fragment key={createdAt}>
                         <Grid item sm={12}>
@@ -35,6 +41,7 @@ function Comments(props) {
                                         >
                                             {userHandle}
                                         </Typography>
+                                        {!loading && authenticated ? (comment.userHandle === user.credentials.handle && <DeleteComment commentId={commentId} />) : null}
                                         <Typography
                                             variant="body2"
                                             color="textSecondary"

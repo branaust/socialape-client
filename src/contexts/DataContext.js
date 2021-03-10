@@ -87,6 +87,24 @@ export function DataProvider(props) {
             .catch(err => console.log(err))
     }
 
+    // Delete A Comment
+    const deleteComment = (commentId) => {
+        axios.delete(`/comments/${commentId}`)
+            .then(() => {
+
+                // TODO: update comment count on scream
+
+                // let screamIndex = screams.findIndex((scream) => scream.screamId === screamId);
+                let commentIndex = comments.findIndex((comment) => comment.commentId === commentId)
+                let newArr = [...comments]
+                newArr.splice(commentIndex, 1)
+                setComments(newArr)
+                //////////////
+                setErrors(null)
+            })
+            .catch(err => console.log(err))
+    }
+
     // POST A Scream
     const postScream = (newScream) => {
         axios.post('/scream', newScream)
@@ -118,6 +136,9 @@ export function DataProvider(props) {
     // Submit A Comment
     const submitComment = (screamId, commentData) => {
         axios.post(`/scream/${screamId}/comment`, commentData)
+
+            // TODO: update comment count on scream
+
             .then(res => {
                 let updatedComments = [res.data, ...scream.comments]
                 let updatedScream = { ...scream, comments: updatedComments }
@@ -161,6 +182,7 @@ export function DataProvider(props) {
         likeScream,
         unlikeScream,
         deleteScream,
+        deleteComment,
         postScream,
         submitComment,
         getUserProfile

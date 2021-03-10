@@ -6,7 +6,8 @@ const styles = {
         borderRadius: "50%"
     },
     commentData: {
-        marginLeft: "20px"
+        marginLeft: "20px",
+        position: 'relative'
     },
     invisibleSeparator: {
         border: 'none',
