@@ -16,6 +16,7 @@ export function DataProvider(props) {
     const [scream, setScream] = useState({})
     const [screamLoading, setScreamLoading] = useState(false)
     const [comments, setComments] = useState([])
+    // const [commentCount, setCommentCount] = useState()
 
     // Get All Screams
     const getScreams = () => {
@@ -41,7 +42,6 @@ export function DataProvider(props) {
                 let newArr = [...screams]
                 newArr[index] = res.data
                 setScreams(newArr)
-                console.log(user.likes)
                 let updatedLikes = [...user.likes, {
                     userHandle: user.credentials.handle,
                     screamId: res.data.screamId
@@ -88,17 +88,24 @@ export function DataProvider(props) {
     }
 
     // Delete A Comment
-    const deleteComment = (commentId) => {
-        axios.delete(`/comments/${commentId}`)
+    const deleteComment = (screamId, commentId) => {
+        axios.delete(`scream/${screamId}/comment/${commentId}`)
             .then(() => {
-
-                // TODO: update comment count on scream
-
-                // let screamIndex = screams.findIndex((scream) => scream.screamId === screamId);
                 let commentIndex = comments.findIndex((comment) => comment.commentId === commentId)
-                let newArr = [...comments]
-                newArr.splice(commentIndex, 1)
-                setComments(newArr)
+                let updatedCommentCount = scream.commentCount -= 1
+                let newCommentArr = [...comments]
+                newCommentArr.splice(commentIndex, 1)
+                setComments(newCommentArr)
+                let updatedScream = {
+                    ...scream, commentCount: updatedCommentCount
+                }
+                let index = screams.findIndex((scream) => scream.screamId === screamId)
+                let newScreamArr = [...screams]
+                newScreamArr[index] = updatedScream
+                setScreams(newScreamArr)
+
+
+                // setScream(updatedScream)
                 //////////////
                 setErrors(null)
             })
@@ -141,7 +148,14 @@ export function DataProvider(props) {
 
             .then(res => {
                 let updatedComments = [res.data, ...scream.comments]
-                let updatedScream = { ...scream, comments: updatedComments }
+                let updatedCommentCount = scream.commentCount += 1
+                let updatedScream = {
+                    ...scream, commentCount: updatedCommentCount, comments: updatedComments
+                }
+                let index = screams.findIndex((scream) => scream.screamId === screamId)
+                let newArr = [...screams]
+                newArr[index] = updatedScream
+                setScreams(newArr)
                 setScream(updatedScream)
                 setComments(updatedComments)
                 setErrors(null)

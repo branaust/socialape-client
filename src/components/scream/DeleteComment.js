@@ -15,7 +15,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 function DeleteComment(props) {
 
     const { classes, commentId } = props
-    const { deleteComment } = useData()
+    const { scream, deleteComment } = useData()
     const [open, toggleOpen] = useToggleState(false)
 
     const handleOpen = () => {
@@ -23,7 +23,7 @@ function DeleteComment(props) {
     }
 
     const deleteSelectedComment = () => {
-        deleteComment(props.commentId)
+        deleteComment(scream.screamId, commentId)
         handleOpen()
     }
 

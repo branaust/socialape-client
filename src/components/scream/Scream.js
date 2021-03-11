@@ -8,6 +8,7 @@ import ToolTipButton from './ToolTipButton'
 import DeleteScream from './DeleteScream'
 import ScreamDialog from './ScreamDialog'
 import LikeButton from './LikeButton'
+import { useData } from '../../contexts/DataContext'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -21,6 +22,8 @@ import ChatIcon from '@material-ui/icons/Chat'
 
 function Scream(props) {
     dayjs.extend(relativeTime)
+    const { comments } = useData
+
     const { classes,
         scream: {
             body,
